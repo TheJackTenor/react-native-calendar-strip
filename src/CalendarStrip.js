@@ -52,6 +52,7 @@ class CalendarStrip extends Component {
     maxDayComponentSize: PropTypes.number,
     minDayComponentSize: PropTypes.number,
     responsiveSizingOffset: PropTypes.number,
+    resize: PropTypes.number,
 
     calendarHeaderStyle: PropTypes.any,
     calendarHeaderFormat: PropTypes.string,
@@ -520,6 +521,12 @@ class CalendarStrip extends Component {
   render() {
     let datesForWeek = this.state.datesForWeek;
     let datesRender = [];
+    let theSize
+    if (this.props.resize) {
+      theSize = this.state.dayComponentWidth - this.props.resize
+    } else {
+      theSize = this.state.dayComponentWidth
+    }
     for (let i = 0; i < datesForWeek.length; i++) {
       let enabled = this.state.datesAllowedForWeek[i];
       let calendarDay = (
@@ -543,7 +550,7 @@ class CalendarStrip extends Component {
           styleWeekend={this.props.styleWeekend}
           daySelectionAnimation={this.props.daySelectionAnimation}
           customStyle={this.state.datesCustomStylesForWeek[i]}
-          size={this.state.dayComponentWidth}
+          size={theSize}
           allowDayTextScaling={this.props.shouldAllowFontScaling}
         />
       );
